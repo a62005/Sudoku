@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Sudoku</string>
+
+    <string name="main_homePage">主頁</string>
+    <string name="main_dailyChallenge">每日挑戰</string>
+    <string name="main_dataStatistics">資料統計</string>
+
+    <string name="homePage_newGame">新遊戲</string>
+
+    <string name="newGame_cancel">取消</string>
+    <string name="newGame_easy">簡單</string>
+    <string name="newGame_normal">一般</string>
+    <string name="newGame_hard">困難</string>
+
+</resources>
