@@ -73,11 +73,11 @@
             app:layout_constraintTop_toTopOf="@id/button_normal" />
 
         <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gray_light_more"
-        app:layout_constraintBottom_toBottomOf="@+id/button_normal"
-        app:layout_constraintTop_toTopOf="@id/button_hard" />
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_light_more"
+            app:layout_constraintBottom_toBottomOf="@+id/button_normal"
+            app:layout_constraintTop_toTopOf="@id/button_hard" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
