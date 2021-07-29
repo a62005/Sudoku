@@ -19,6 +19,7 @@ private const val MODE = "MODE"
 const val EASY = "EASY"
 const val NORMAL = "NORMAL"
 const val HARD = "HARD"
+const val NO_NUMBER = "0"
 
 class GamePageFragment : Fragment() {
 
@@ -60,6 +61,7 @@ class GamePageFragment : Fragment() {
                     buttonPlayStatus.setImageResource(R.drawable.play_arrow)
                     pauseTime = SystemClock.elapsedRealtime() - timer.base //紀錄按下暫停時的進行秒數
                     timer.stop()
+                    pauseFrame.visibility = View.VISIBLE
                 }else{
                     buttonPlayStatus.setImageResource(R.drawable.pause)
                     timer.base = SystemClock.elapsedRealtime() - pauseTime //讓計時器的時間更新為按下暫停時的時間
@@ -69,10 +71,23 @@ class GamePageFragment : Fragment() {
                 }
                 isPlaying = !isPlaying
             }
+            buttonPlay.setOnClickListener {
+                pauseFrame.visibility = View.GONE
+                buttonPlayStatus.setImageResource(R.drawable.pause)
+                timer.base = SystemClock.elapsedRealtime() - pauseTime //讓計時器的時間更新為按下暫停時的時間
+                val startTime = SystemClock.elapsedRealtime() - timer.base
+                timer.format = "0${(startTime / 1000 / 60).toInt()}:%s"
+                timer.start()
+                isPlaying = true
+            }
+
+            eraser.setOnClickListener{
+                viewModel.clear()
+            }
 
             val manager = GridLayoutManager(requireContext(),9)
             val numberArray : ArrayList<Int> = arrayListOf(1,2,3,4,5,6,7,8,9)
-            val numberAdapter = NumberAdapter()
+            val numberAdapter = NumberAdapter(viewModel)
             numberAdapter.submitList(numberArray)
             recyclerViewNumber.layoutManager = manager
             recyclerViewNumber.adapter = numberAdapter
@@ -80,7 +95,7 @@ class GamePageFragment : Fragment() {
             recyclerViewNumber.addItemDecoration(itemDecoration)
 
             buttonBack.setOnClickListener {
-                val game = PlayingGame(mode!!,timer.text.toString())
+                val game = PlayingGame(mode!!,timer.text.toString(),score.text.toString().toInt(),wrongTimes.text.toString().toInt())
                 viewModel.setNowGame(game)
                 activity?.onBackPressed()
             }

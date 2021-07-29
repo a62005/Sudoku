@@ -14,10 +14,12 @@
     <string name="newGame_normal">一般</string>
     <string name="newGame_hard">困難</string>
 
-    <string name="game_number">1</string>
+    <string name="game_number">0</string>
     <string name="game_time">00:08</string>
     <string name="game_wrong">錯誤:</string>
     <string name="game_wrongChance">/3</string>
+    <string name="game_eraser">清除</string>
+    <string name="game_hint">提示</string>
 
     <string name="record_playedGame">已開始的遊戲</string>
     <string name="record_game">遊戲</string>

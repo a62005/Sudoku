@@ -39,15 +39,14 @@ class LargeFrameAdapter(private val viewModel: GameViewModel,private val lifecyc
         holder.binding.apply {
             holder.itemView.apply {
                 val numberArray : ArrayList<Int> = arrayListOf(1,2,3,4,5,6,7,8,9)
-                val numberAdapter = SmallFrameAdapter(this,position,viewModel,lifecycleOwner)
+                val numberAdapter = SmallFrameAdapter(this,viewModel,lifecycleOwner)
                 numberAdapter.submitList(numberArray)
                 recyclerViewSmallFrame.adapter = numberAdapter
-
                 viewModel.bigFrameOnClick.observe(lifecycleOwner){
-                    if(this == it){
-                        this.background = resource.getDrawable(R.drawable.shape_large_frame_onclick)
+                    background = if(this == it){
+                        resource.getDrawable(R.drawable.shape_large_frame_onclick)
                     }else{
-                        background = resource.getDrawable(R.drawable.shape_large_frame)
+                        resource.getDrawable(R.drawable.shape_large_frame)
                     }
                 }
             }

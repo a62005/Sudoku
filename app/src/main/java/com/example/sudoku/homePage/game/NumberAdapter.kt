@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sudoku.GameViewModel
 import com.example.sudoku.databinding.ItemNumberBinding
 
-class NumberAdapter: ListAdapter<Int, NumberAdapter.NumberViewHolder>(NumberComparator()) {
+class NumberAdapter(private val viewModel: GameViewModel): ListAdapter<Int, NumberAdapter.NumberViewHolder>(NumberComparator()) {
     class NumberViewHolder(val binding: ItemNumberBinding):RecyclerView.ViewHolder(binding.root)
     class NumberComparator:DiffUtil.ItemCallback<Int>(){
         override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
@@ -29,6 +30,11 @@ class NumberAdapter: ListAdapter<Int, NumberAdapter.NumberViewHolder>(NumberComp
     override fun onBindViewHolder(holder: NumberViewHolder, position: Int) {
         holder.binding.apply {
             number.text = getItem(position).toString()
+            holder.itemView.apply {
+                setOnClickListener {
+                    viewModel.setNumber(getItem(position))
+                }
+            }
         }
     }
 }

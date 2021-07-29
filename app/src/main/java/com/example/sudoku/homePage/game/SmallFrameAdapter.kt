@@ -12,8 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sudoku.GameViewModel
 import com.example.sudoku.R
 import com.example.sudoku.databinding.ItemSmallFrameNumberBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class SmallFrameAdapter(private val bigView: View, private val bigFramePosition: Int, private val viewModel: GameViewModel, private val lifecycleOwner: LifecycleOwner): ListAdapter<Int, SmallFrameAdapter.SmallFrameViewHolder>(SmallFrameComparator()){
+@Suppress("LABEL_NAME_CLASH")
+class SmallFrameAdapter(private val bigView: View, private val viewModel: GameViewModel, private val lifecycleOwner: LifecycleOwner): ListAdapter<Int, SmallFrameAdapter.SmallFrameViewHolder>(SmallFrameComparator()){
+    private val scope = CoroutineScope(Dispatchers.IO)
     class SmallFrameViewHolder(val binding: ItemSmallFrameNumberBinding): RecyclerView.ViewHolder(binding.root)
     class SmallFrameComparator: DiffUtil.ItemCallback<Int>(){
         override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
@@ -35,30 +40,36 @@ class SmallFrameAdapter(private val bigView: View, private val bigFramePosition:
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: SmallFrameViewHolder, position: Int) {
         val resource = holder.itemView.context
+
         holder.binding.apply {
             holder.itemView.apply {
                 setOnClickListener {
-                    viewModel.setFrameOnclick(bigView,this)
+                    viewModel.setFrameOnclick(bigView,this,holder.binding)
                 }
                 viewModel.bigFrameOnClick.observe(lifecycleOwner){big->
                     viewModel.smallFrameOnClick.observe(lifecycleOwner){small->
-                        when {
-                            bigView.x == big.x -> {
-                                if(this.x == small.x) {
-                                    this.background = resource.getDrawable(R.drawable.shape_small_frame_onclick)
-                                }else{
+                        scope.launch {
+                            when {
+                                small == this@apply -> {
+                                    background = resource.getDrawable(R.drawable.shape_small_frame_focus)
+                                }
+                                bigView.x == big.x -> {
+                                    background = if(this@apply.x == small.x) {
+                                        resource.getDrawable(R.drawable.shape_small_frame_onclick)
+                                    }else{
+                                        resource.getDrawable(R.drawable.shape_small_frame)
+                                    }
+                                }
+                                bigView.y == big.y -> {
+                                    background = if(this@apply.y == small.y) {
+                                        resource.getDrawable(R.drawable.shape_small_frame_onclick)
+                                    }else{
+                                        resource.getDrawable(R.drawable.shape_small_frame)
+                                    }
+                                }
+                                else -> {
                                     background = resource.getDrawable(R.drawable.shape_small_frame)
                                 }
-                            }
-                            bigView.y == big.y -> {
-                                if(this.y == small.y) {
-                                    this.background = resource.getDrawable(R.drawable.shape_small_frame_onclick)
-                                }else{
-                                    background = resource.getDrawable(R.drawable.shape_small_frame)
-                                }
-                            }
-                            else -> {
-                                background = resource.getDrawable(R.drawable.shape_small_frame)
                             }
                         }
                     }

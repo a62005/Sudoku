@@ -149,7 +149,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/textView_starNumber"
+            android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_number"
@@ -199,7 +199,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/textView_wrongTimes"
+            android:id="@+id/wrongTimes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
@@ -213,12 +213,99 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_wrongChance"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_wrongTimes"
-            app:layout_constraintStart_toEndOf="@+id/textView_wrongTimes"
-            app:layout_constraintTop_toTopOf="@+id/textView_wrongTimes" />
+            app:layout_constraintBottom_toBottomOf="@+id/wrongTimes"
+            app:layout_constraintStart_toEndOf="@+id/wrongTimes"
+            app:layout_constraintTop_toTopOf="@+id/wrongTimes" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pauseFrame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/textView18"
+        app:layout_constraintEnd_toStartOf="@+id/textView16"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+        <ImageView
+            android:id="@+id/button_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/play_circle"
+            app:layout_constraintStart_toStartOf="@id/pauseFrame"
+            app:layout_constraintEnd_toEndOf="@id/pauseFrame"
+            app:layout_constraintTop_toTopOf="@id/pauseFrame"
+            app:layout_constraintBottom_toBottomOf="@id/pauseFrame"
+            tools:ignore="ContentDescription" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/eraser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_number"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/hint">
+
+        <ImageView
+            android:id="@+id/imageView_eraser"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/eraser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textView_eraser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_eraser"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView_eraser"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_number"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/eraser">
+
+        <ImageView
+            android:id="@+id/imageView_hint"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"/>
+
+        <TextView
+            android:id="@+id/textView_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_hint"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView_hint"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
